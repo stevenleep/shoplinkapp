@@ -1,29 +1,36 @@
-import React from 'react';
-import Header from './components/Header';
-import Hero from './components/Hero';
-import Vision from './components/Vision';
-import Solutions from './components/Solutions';
-// import Features from './components/Features';
-import Stats from './components/Stats';
-// import Story from './components/Story';
-import BookingForm from './components/BookingForm';
-import CTA from './components/CTA';
-import Footer from './components/Footer';
+import React, { useState } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { NotificationBar } from './components/NotificationBar';
+import { HomePage } from './pages/HomePage';
+import { ProductPage } from './pages/ProductPage';
+import { AboutPage } from './pages/AboutPage';
+import { VisionPage } from './pages/VisionPage';
+import { ContactPage } from './pages/ContactPage';
+import { LoginPage } from './pages/LoginPage';
+import { PricingPage } from './pages/PricingPage';
 
 function App() {
+  const [showNotification, setShowNotification] = useState(true);
+
   return (
-    <div className="min-h-screen bg-white">
-      <Header />
-      <Hero />
-      <Vision />
-      <Solutions />
-      {/* <Features /> */}
-      <Stats />
-      {/* <Story /> */}
-      <BookingForm />
-      <CTA />
-      <Footer />
-    </div>
+    <Router>
+      <div className="min-h-screen bg-white">
+        <NotificationBar 
+          show={showNotification} 
+          onClose={() => setShowNotification(false)} 
+        />
+        
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/product/:slug" element={<ProductPage />} />
+          <Route path="/about" element={<AboutPage />} />
+          <Route path="/vision" element={<VisionPage />} />
+          <Route path="/contact" element={<ContactPage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/pricing" element={<PricingPage />} />
+        </Routes>
+      </div>
+    </Router>
   );
 }
 
